@@ -11,20 +11,20 @@ class Game
 public:
 
 	Game(int width, int height, std::string title);
-	
+
 	~Game();
 
 	void UpdateGame();
-	
+
 	void DrawGame();
-	
+
 	void UpdateDrawGame();
-	
+
 	void UnloadGame();
 
 
 	void setTitle(std::string& newTitle) { title = newTitle; }
-	
+
 	bool isGamePaused() { return pause; }
 	bool isGameOver() { return gameOver; }
 
@@ -33,7 +33,7 @@ private:
 	int screenHeight = 0;
 	const int screenMidX = screenWidth / 2;
 	const int  screenMidY = screenHeight / 2;
-	
+
 	std::string title = " ";
 
 	bool pause = false;

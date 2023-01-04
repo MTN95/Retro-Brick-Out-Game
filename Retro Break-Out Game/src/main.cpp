@@ -8,6 +8,6 @@ int main(void)
 	{
 		game01.UpdateDrawGame();
 	}
-	
+
 	return 0;
 }

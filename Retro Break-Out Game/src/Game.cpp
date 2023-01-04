@@ -6,7 +6,7 @@ Game::Game(int width, int height, std::string title)
 	InitWindow(screenWidth, screenHeight, title.c_str());
 
 	InitAudioDevice();
-	
+
 	// only updates as fast as the user's refresh rate
 	SetWindowState(FLAG_VSYNC_HINT);
 
@@ -58,11 +58,11 @@ void Game::UpdateGame()
 			if (IsKeyDown(KEY_LEFT))
 				GamePaddle.position.x -= GamePaddle.speed;
 
-			
+
 			if (GamePaddle.position.x >= rightWallPos) GamePaddle.position.x = static_cast<float>(rightWallPos);
-			
+
 			if (GamePaddle.position.x <= leftWallPos) GamePaddle.position.x = static_cast<float>(leftWallPos);
-			
+
 			// Launching the ball 
 			if (!GameBall.isActive)
 			{
@@ -82,7 +82,7 @@ void Game::UpdateGame()
 			{
 				GameBall.position = Vector2{ GamePaddle.position.x, screenHeight * 7.f / 8 - 30 };
 			}
-			
+
 			// Ball Collision with walls
 			if ((GameBall.position.x >= screenWidth - GameBall.radius) || (GameBall.position.x <= GameBall.radius))
 				GameBall.speed.x *= -1;
@@ -95,7 +95,7 @@ void Game::UpdateGame()
 			}
 
 			if (GameBall.position.y <= GameBall.radius) GameBall.speed.y *= -1;
-			
+
 
 			// Collision logic: ball vs player
 			if (CheckCollisionCircleRec(GameBall.position, GameBall.radius,
@@ -131,26 +131,26 @@ void Game::DrawGame()
 {
 
 	BeginDrawing();
-		ClearBackground(WHITE);
-		DrawFPS(10, 10);
-		
-		// Draw player paddle
-		DrawRectangle(static_cast<int>(GamePaddle.position.x) - static_cast<int>(GamePaddle.size.x) / 2, static_cast<int>(GamePaddle.position.y) -
-			static_cast<int>(GamePaddle.size.y) / 2, static_cast<int>(GamePaddle.size.x), static_cast<int>(GamePaddle.size.y), GamePaddle.color);
+	ClearBackground(WHITE);
+	DrawFPS(10, 10);
 
-		// Draw ball
-		DrawCircleV(GameBall.position, GameBall.radius, MAROON);
+	// Draw player paddle
+	DrawRectangle(static_cast<int>(GamePaddle.position.x) - static_cast<int>(GamePaddle.size.x) / 2, static_cast<int>(GamePaddle.position.y) -
+		static_cast<int>(GamePaddle.size.y) / 2, static_cast<int>(GamePaddle.size.x), static_cast<int>(GamePaddle.size.y), GamePaddle.color);
 
-		// Draw player life bars
-		for (int i = 0; i < GamePaddle.life; i++) DrawRectangle(i * screenWidth / 20 + screenWidth - 215, screenHeight - 30, 35, 10, MAROON);
+	// Draw ball
+	DrawCircleV(GameBall.position, GameBall.radius, MAROON);
 
-		
-		if (pause)
-		{
-			int textWidth = MeasureText("PAUSED", 30);
-			DrawText("PAUSED", screenMidX - textWidth, screenMidY - 100, 60, BLACK);
+	// Draw player life bars
+	for (int i = 0; i < GamePaddle.life; i++) DrawRectangle(i * screenWidth / 20 + screenWidth - 215, screenHeight - 30, 35, 10, MAROON);
 
-		}
+
+	if (pause)
+	{
+		int textWidth = MeasureText("PAUSED", 30);
+		DrawText("PAUSED", screenMidX - textWidth, screenMidY - 100, 60, BLACK);
+
+	}
 
 	EndDrawing();
 }
