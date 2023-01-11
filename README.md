@@ -22,6 +22,7 @@ To build the game, follow these steps:
 Playing the Game
 
 use the arrow keys - ←↑→↓ - to move the right paddle 
+
 use the space key ⎵ to launch the ball
 
 I am excited to continue learning and improving my skills in C++ and game development. Some ideas for future projects are:
