@@ -7,6 +7,6 @@ int main(void)
 	{
 		Game01->UpdateDrawGame();
 	}
-	
+
 	return 0;
 }
