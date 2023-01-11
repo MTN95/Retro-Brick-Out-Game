@@ -1,9 +1,12 @@
 #pragma once
 #include <iostream>
+#include <memory>
+#include <vector>
 #include <string>
 #include <raylib.h>
 #include "Ball.h"
 #include "Paddle.h"
+#include "Brick.h"
 
 
 class Game
@@ -20,8 +23,7 @@ public:
 	
 	void UpdateDrawGame();
 	
-	void UnloadGame();
-
+	void UnloadGame(); // for cleaning custom assets, sound, textures etc..
 
 	void setTitle(std::string& newTitle) { title = newTitle; }
 	
@@ -39,7 +41,8 @@ private:
 	bool pause = false;
 	bool gameOver = false;
 
-	aBall GameBall = { 0 };
-	aPaddle GamePaddle = { 0 };
-
+	std::unique_ptr<aBall> GameBall = std::make_unique<aBall>();
+	std::unique_ptr<aPaddle> GamePaddle = std::make_unique<aPaddle>();
+	std::vector<std::unique_ptr<aBrick>> GameBricks;
+	
 };

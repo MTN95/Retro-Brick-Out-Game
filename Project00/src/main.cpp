@@ -2,11 +2,10 @@
 
 int main(void)
 {
-	Game game01(800, 600, "Game");
-
+	std::unique_ptr<Game>Game01 = std::make_unique<Game>(800,600, "Break-Out");
 	while (!WindowShouldClose())
 	{
-		game01.UpdateDrawGame();
+		Game01->UpdateDrawGame();
 	}
 	
 	return 0;

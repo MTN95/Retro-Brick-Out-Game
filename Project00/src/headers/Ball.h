@@ -1,6 +1,7 @@
 #pragma once
 
-class aBall {
+class aBall 
+{
 public:
 
 	Vector2 position = { 0 };
