@@ -37,7 +37,10 @@ void Game::UpdateGame()
 		if (!pause)
 		{
 			// Pause the game at any time
-			if (IsKeyPressed(KEY_P)) pause = !pause;
+			if (IsKeyPressed(KEY_P))
+			{
+				pause = !pause;
+			}
 
 			// Player Paddle movement and collision
 			if (IsKeyDown(KEY_RIGHT))
@@ -52,6 +55,9 @@ void Game::UpdateGame()
 			// Launching the ball 
 			if (!GameBall.isActive)
 			{
+				GameBall.positionX = GamePaddle.positionX;
+				GameBall.positionY = screenHeight * 7.f / 8 - 30;
+
 				if (IsKeyPressed(KEY_SPACE))
 				{
 					GameBall.isActive = true;
@@ -59,18 +65,13 @@ void Game::UpdateGame()
 					GameBall.speedY =  -5.f;
 				}
 			}
-
-			if (GameBall.isActive)
+			else
 			{
 				GameBall.positionX += GameBall.speedX;
 				GameBall.positionY += GameBall.speedY;
 			}
-			else
-			{
-				GameBall.positionX = GamePaddle.positionX;
-				GameBall.positionY = screenHeight * 7.f / 8 - 30;
-			}
-			
+
+		
 			// Ball Collision with walls
 			if ((GameBall.positionX >= screenWidth - GameBall.radius) || (GameBall.positionX <= GameBall.radius))
 				GameBall.speedX *= -1;
@@ -161,33 +162,16 @@ void Game::UpdateGame()
 	}
 	else
 	{
-		int textWidth = MeasureText("Game Over!, press enter to play again", 20);
-		DrawText("Game Over!, press enter to play again", screenMidX - textWidth, screenMidY - 100, 40, BLACK);
-
-		// re initialize the game
-		if (IsKeyPressed(KEY_ENTER))
-		{
-			for (auto& bricks : GameBricks)
-			{
-				for (auto& brick : bricks)
-				{
-					brick.isAlive = true;
-				}
-			}
-
-			initGame();
-			gameOver = false;
-		}
+		GameOverScreen();
 	}
-
 }
 
-void Game::DrawGame()
+void Game::DrawGame() const
 {
 
 	BeginDrawing();
 		ClearBackground(WHITE);
-		DrawFPS(10, 10);
+		DrawFPS(10, screenHeight - 20);
 		
 		//DrawRectangleRec()
 		Rectangle paddleRec= { GamePaddle.positionX - GamePaddle.sizeX * 0.5f, GamePaddle.positionY -
@@ -228,8 +212,6 @@ void Game::DrawGame()
 
 void Game::initGame()
 {
-	pause = false;
-	gameOver = false;
 
 	// Initialize player
 	GamePaddle.positionX = screenWidth * 0.5f;
@@ -237,7 +219,7 @@ void Game::initGame()
 	GamePaddle.sizeX = screenWidth / 8.f;
 	GamePaddle.sizeY = 20;
 	GamePaddle.speed = 5;
-	GamePaddle.life = 5;
+	GamePaddle.life = 1;
 
 	// Initialize ball
 	GameBall.positionX = screenWidth * 0.5f;
@@ -267,5 +249,28 @@ void Game::initGame()
 			GameBricks[i][j] = brick;
 		}
 	}
+}
+
+void Game::GameOverScreen()
+{
+	int textWidth = MeasureText("Game Over!, press enter to play again", 20);
+	DrawText("Game Over!, press enter to play again", screenMidX - textWidth, screenMidY - 300, 40, BLACK);
+
+	// //reinitialize the game
+	//if (IsKeyPressed(KEY_ENTER))
+	//{
+	//	for (auto& bricks : GameBricks)
+	//	{
+	//		for (auto& brick : bricks)
+	//		{
+	//			brick.isAlive = true;
+	//		}
+	//	}
+
+	//	initGame();	
+	//	pause = false;
+	//	gameOver = false;
+
+	//}
 }
 
