@@ -1,17 +1,13 @@
 #pragma once
 
 
-class aBrick
+struct Brick
 {
-public:
-	Vector2 position = { 0 };
-	Vector2 size = { 0 };
+	float positionX = 0;
+	float positionY = 0;
+	float sizeX = 0;
+	float sizeY = 0;
 	Color color = RED;
 	bool isAlive = false;
 	
-	static Vector2 CalculateSpacing(Vector2 brickSize) 
-	{
-		// Set the x and y spacing based on the size of the brick
-		return { 5 + brickSize.x, 5 + brickSize.y };
-	}
 };

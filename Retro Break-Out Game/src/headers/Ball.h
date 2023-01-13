@@ -1,12 +1,13 @@
 #pragma once
 
-class aBall 
+struct Ball 
 {
-public:
-
-	Vector2 position = { 0 };
-	Vector2 speed = { 0 };
+	float positionX = 0;
+	float positionY = 0;
+	float speedX = 0;
+	float speedY = 0;
 	float radius = 0;
-	Color color = WHITE;
+	Color color = MAROON;
 	bool isActive = false;
+
 };

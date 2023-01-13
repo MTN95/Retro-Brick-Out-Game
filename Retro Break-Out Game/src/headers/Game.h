@@ -20,15 +20,11 @@ public:
 	void UpdateGame();
 	
 	void DrawGame();
-	
-	void UpdateDrawGame();
-	
-	void UnloadGame(); // for cleaning custom assets, sound, textures etc..
 
-	void setTitle(std::string& newTitle) { title = newTitle; }
-	
-	bool isGamePaused() { return pause; }
-	bool isGameOver() { return gameOver; }
+	bool isGamePaused() const { return pause; }
+	bool isGameOver() const { return gameOver; }
+
+	void initGame();
 
 private:
 	int screenWidth = 0;
@@ -40,9 +36,12 @@ private:
 
 	bool pause = false;
 	bool gameOver = false;
+	
+	Ball GameBall;
+	Paddle GamePaddle;
+	std::vector<std::vector<Brick>> GameBricks;
 
-	std::unique_ptr<aBall> GameBall = std::make_unique<aBall>();
-	std::unique_ptr<aPaddle> GamePaddle = std::make_unique<aPaddle>();
-	std::vector<std::unique_ptr<aBrick>> GameBricks;
+	const int LINES_OF_BRICKS = 12;
+	const int BRICKS_PER_LINE = 8;
 	
 };
